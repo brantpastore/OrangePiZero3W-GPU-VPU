@@ -1,0 +1,17 @@
+# Source images
+*.img
+*.img.sha
+*.7z
+*.xz
+
+# Generated files
+hybrid-*.img
+opi-*.img
+pvr-userspace.tar.gz
+vpu-userspace.tar.gz
+
+# Logs and local files
+*.log
+screenlog.*
+.DS_Store
+Thumbs.db
