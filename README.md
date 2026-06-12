@@ -95,4 +95,4 @@ This does not build the PowerVR kernel module. Use the full image builder if you
 
 The scripts and documentation here are MIT licensed. The Radxa, Imagination Technologies, and Allwinner binaries the scripts copy are not. They come from the Radxa image you provide locally and stay under their original licenses.
 
-Don't commit source images, generated hybrid images, or the userspace tarballs.
+Don't open PRs containing source images, generated hybrid images, or the userspace tarballs.
