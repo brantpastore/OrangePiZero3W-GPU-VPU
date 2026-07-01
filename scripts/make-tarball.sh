@@ -128,7 +128,11 @@ GSTOMX_STAGED="$VPU_STAGE/etc/xdg/gstomx.conf"
 if [ -f "$GSTOMX_STAGED" ]; then
   HACKS="event-port-settings-changed-ndata-parameter-swap;event-port-settings-changed-port-0-to-1;no-disable-outport;no-component-reconfigure;no-component-role;no-empty-eos-buffer;pass-color-format-to-decoder;pass-profile-to-decoder;signals-premature-eos;height-multiple-16"
   sed -i "s|^hacks=.*|hacks=$HACKS|" "$GSTOMX_STAGED"
-  echo "   patched gstomx.conf: $(grep -c '^hacks=' "$GSTOMX_STAGED") entries"
+  # core-name uses dlopen; relative paths honour LD_LIBRARY_PATH so the libs
+  # are found whether they live under /usr/lib/… (bare metal) or /opt/cedar-libs
+  # (Docker bind-mount). Absolute paths from the Radxa image only work on Radxa.
+  sed -i "s|^core-name=.*/libOmxCore\.so|core-name=libOmxCore.so|g" "$GSTOMX_STAGED"
+  echo "   patched gstomx.conf: $(grep -c '^hacks=' "$GSTOMX_STAGED") hacks= entries, $(grep -c '^core-name=' "$GSTOMX_STAGED") core-name= entries"
 fi
 
 # Make Cedar device nodes usable on headless boots
